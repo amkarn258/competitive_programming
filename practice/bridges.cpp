@@ -44,8 +44,6 @@ ll findMinCost(vector<ll>& row, ll d) {
     dp[0] = 1;
     for (ll i=1; i<m; i++) {
         if (i>d) s.erase(s.find(dp[i - d - 1]));
-        // ll cost_here = *s.begin() + row[i] + 1;
-        // cout<<i<<" "<<cost_here<<endl;
         dp[i] = *s.begin() + row[i] + 1;
         s.insert(dp[i]);
     }
@@ -71,17 +69,14 @@ int main() {
         vector<ll> costs(n, -1);
         for (ll i=0; i<k; i++) {
             ll cost_i = findMinCost(grid[i], d);
-            // cout<<cost_i<<endl;
             costs[i] = cost_i;
             cost += cost_i;
         }
         ll mincost = cost;
-        // cout<<cost<<endl;
         for (ll i = k; i<n; i++) {
             cost -= costs[i-k];
             costs[i] = findMinCost(grid[i], d);
             cost += costs[i];
-            // cout<<cost<<endl;
             mincost = min(mincost, cost);
         }
         cout<<mincost<<endl;
